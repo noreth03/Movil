@@ -18,7 +18,7 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
     private lateinit var textViewData: TextView // Declara la variable para la vista textViewData
     private var listNames: ArrayList<String> = ArrayList() // ArrayList para almacenar los nombres
-
+    lateinit var pieChart: PieChart
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                         stringBuilder.append("Expire: ${item.expire}\n")
                         stringBuilder.append("Flags: ${item.flags}\n")
                         stringBuilder.append("Mname: ${item.mname}\n")
-                        listNames.add(item.record_type) // Añade el nombre a la lista
+                        listNames.add(item.record_type)
                         stringBuilder.append("Record Type: ${item.record_type}\n")
                         stringBuilder.append("Refresh: ${item.refresh}\n")
                         stringBuilder.append("Retry: ${item.retry}\n")
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     // Actualiza el texto del TextView con los datos construidos
-                    textViewData.text = stringBuilder.toString()
+                    //textViewData.text = stringBuilder.toString()
 
                     // Una vez que tienes los nombres, puedes usarlos para crear el gráfico de pastel
                     println(listNames)
@@ -73,26 +73,34 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun frequencyNumber(arr: ArrayList<String>): HashMap<String, Int> {
-        val freqMap: HashMap<String, Int> = HashMap()
+    private fun findFrequency(array: List<String>): HashMap<String, Int> {
+        val frequencyMap = HashMap<String, Int>()
 
-        for (name in arr) {
-            if (freqMap.containsKey(name)) {
-                freqMap[name] = freqMap[name]!! + 1
+        for (element in array) {
+            if (frequencyMap.containsKey(element)) {
+                frequencyMap[element] = frequencyMap[element]!! + 1
             } else {
-                freqMap[name] = 1
+                frequencyMap[element] = 1
             }
-        }
-        return freqMap
+
+
+    }
+        return frequencyMap
     }
 
     // Genera el gráfico de pastel de la cantidad de ventas por bazar
     private fun createPieChart(listNames: ArrayList<String>) {
-        lateinit var pieChart: PieChart
+
         val list: ArrayList<PieEntry> = ArrayList()
-        val hashBazar = frequencyNumber(listNames)
+        val hashBazar = findFrequency(listNames)
+        println("*******0********")
+        println(hashBazar)
+
+
         val entries = hashBazar.entries
-        pieChart = findViewById(R.id.bar_chart_rv)
+        pieChart = findViewById(R.id.pie_chart_rv)
+
+
 
         // itera por el hashmap para graficar key(bazar) y value(cantidad de ventas)
         for ((key, value) in entries) {
@@ -102,6 +110,9 @@ class MainActivity : AppCompatActivity() {
             println("--<>---")
             println(valueFloat)
         }
+
+
+
 
         // grafica y la detalla
         val pieDataSet = PieDataSet(list, "List")
@@ -114,6 +125,7 @@ class MainActivity : AppCompatActivity() {
         pieChart.centerText = "List"
         pieChart.notifyDataSetChanged()
         pieChart.invalidate()
+
     }
 }
 

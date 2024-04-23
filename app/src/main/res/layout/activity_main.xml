@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    >
 
     <TextView
         android:id="@+id/textViewTitle"
@@ -33,14 +33,14 @@
         android:layout_below="@id/buttonGetData"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/bar_chart_rv"
-        android:layout_width="400dp"
-        android:layout_height="500dp"
-        android:layout_marginStart="0dp"
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pie_chart_rv"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="200dp">
 
 
-    </com.github.mikephil.charting.charts.BarChart>
+    </com.github.mikephil.charting.charts.PieChart>
 
 </RelativeLayout>
