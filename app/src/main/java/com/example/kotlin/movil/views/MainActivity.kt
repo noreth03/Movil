@@ -19,17 +19,17 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var textViewData: TextView // Declara la variable para la vista textViewData
-    private lateinit var domainText: EditText // Declara el EditText para que el usuario ingrese el dominio
-    private var listNames: ArrayList<String> = ArrayList() // ArrayList para almacenar los nombres
+    private lateinit var textViewData: TextView
+    private lateinit var domainText: EditText
+    private var listNames: ArrayList<String> = ArrayList()
     lateinit var pieChart: PieChart
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        textViewData = findViewById(R.id.textViewData) // Inicializa la variable de la vista
-        domainText = findViewById(R.id.domainText) // Inicializa el EditText del dominio
+        textViewData = findViewById(R.id.textViewData)
+        domainText = findViewById(R.id.domainText)
 
         val buttonGetData: Button = findViewById(R.id.buttonGetData)
         buttonGetData.setOnClickListener {
@@ -59,28 +59,11 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val data = response.body()
 
-                    // Construye una cadena de texto con los datos de cada ninjaResponesItem
                     val stringBuilder = StringBuilder()
                     data?.forEach { item ->
-                        stringBuilder.append("Expire: ${item.expire}\n")
-                        stringBuilder.append("Flags: ${item.flags}\n")
-                        stringBuilder.append("Mname: ${item.mname}\n")
                         listNames.add(item.record_type)
-                        stringBuilder.append("Record Type: ${item.record_type}\n")
-                        stringBuilder.append("Refresh: ${item.refresh}\n")
-                        stringBuilder.append("Retry: ${item.retry}\n")
-                        stringBuilder.append("Rname: ${item.rname}\n")
-                        stringBuilder.append("Serial: ${item.serial}\n")
-                        stringBuilder.append("Tag: ${item.tag}\n")
-                        stringBuilder.append("TTL: ${item.ttl}\n")
-                        stringBuilder.append("Value: ${item.value}\n\n")
+
                     }
-
-                    // Actualiza el texto del TextView con los datos construidos
-                    //textViewData.text = stringBuilder.toString()
-
-                    // Una vez que tienes los nombres, puedes usarlos para crear el gráfico de pastel
-                    println(listNames)
                     createPieChart(listNames)
                 } else {
                     // Maneja el error de respuesta
@@ -107,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         return frequencyMap
     }
 
-    // Genera el gráfico de pastel de la cantidad de ventas por bazar
+    // Genera el gráfico de pastel de la cantidad de record types
     private fun createPieChart(listNames: ArrayList<String>) {
         val list: ArrayList<PieEntry> = ArrayList()
         val hashBazar = findFrequency(listNames)
@@ -115,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         val entries = hashBazar.entries
         pieChart = findViewById(R.id.pie_chart_rv)
 
-        // itera por el hashmap para graficar key(bazar) y value(cantidad de ventas)
+        // itera por el hashmap para graficar key(bazar) y value(cantidad de record types)
         for ((key, value) in entries) {
             val valueFloat = value.toFloat()
             list.add(PieEntry(valueFloat, key))
