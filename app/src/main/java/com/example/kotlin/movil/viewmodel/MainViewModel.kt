@@ -24,6 +24,7 @@ class MainViewModel : ViewModel() {
         val call = service.getDNSLookup(domain, apiKey)
 
         call.enqueue(object : Callback<ninjaRespones> {
+            // Consigue los datos del Json
             override fun onResponse(call: Call<ninjaRespones>, response: Response<ninjaRespones>) {
                 if (response.isSuccessful) {
                     _ninjaResponse.value = response.body()
@@ -32,6 +33,7 @@ class MainViewModel : ViewModel() {
                 }
             }
 
+            // En caso de error
             override fun onFailure(call: Call<ninjaRespones>, t: Throwable) {
                 _error.value = "Error: ${t.message}"
             }

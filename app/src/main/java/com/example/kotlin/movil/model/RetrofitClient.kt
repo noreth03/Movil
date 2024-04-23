@@ -5,6 +5,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+// instancia del servicio Retrofit para comunicarse con la API,
 object RetrofitClient {
 
     private const val BASE_URL = "https://api.api-ninjas.com/v1/"

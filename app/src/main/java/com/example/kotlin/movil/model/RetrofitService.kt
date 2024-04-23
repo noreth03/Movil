@@ -5,6 +5,8 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
 
+
+//  métodos para realizar solicitudes HTTP a la API utilizando Retrofit.
 interface RetrofitService {
 
     @GET("dnslookup")

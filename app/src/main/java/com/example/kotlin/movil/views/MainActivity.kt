@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private var listNames: ArrayList<String> = ArrayList()
     lateinit var pieChart: PieChart
 
+    // Interaccion con el suuaio y llama a fetch data
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // con los datos llama al servicio con el domain y la api key y obtiene los datos de record types y los guarda en un arrglo
     private fun fetchData(domain: String) {
         // Antes de realizar la llamada, limpia la lista de datos
         listNames.clear()
@@ -76,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-
+    // Crea un hashmap donde se guarda el type record (key) y su cantidad (value)
     private fun findFrequency(array: List<String>): HashMap<String, Int> {
         val frequencyMap = HashMap<String, Int>()
 
